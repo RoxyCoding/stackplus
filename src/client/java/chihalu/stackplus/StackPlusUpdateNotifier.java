@@ -30,7 +30,6 @@ public final class StackPlusUpdateNotifier {
     private static final String MODRINTH_VERSIONS_URL =
             "https://api.modrinth.com/v2/project/stackplus/version";
     private static final String MODRINTH_PAGE_URL = "https://modrinth.com/mod/stackplus";
-    private static final String RELEASE_NOTE_URL = "https://chihalucoding.github.io/stackplus-release-note/";
     private static final AtomicBoolean checkStartedThisSession = new AtomicBoolean();
     private static volatile UpdateNotice pendingUpdate;
 
@@ -140,11 +139,6 @@ public final class StackPlusUpdateNotifier {
                 .withStyle(style -> style.withColor(ChatFormatting.YELLOW)
                         .withUnderlined(true)
                         .withClickEvent(new ClickEvent.OpenUrl(URI.create(MODRINTH_PAGE_URL)))));
-        links.append(Component.literal(" / "));
-        links.append(Component.translatable("chat.stackplus.update.release_note")
-                .withStyle(style -> style.withColor(ChatFormatting.AQUA)
-                        .withUnderlined(true)
-                        .withClickEvent(new ClickEvent.OpenUrl(URI.create(RELEASE_NOTE_URL)))));
         addChatMessage(client, links);
 
         addChatMessage(client, Component.translatable("chat.stackplus.update.disable_hint")

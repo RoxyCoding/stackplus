@@ -19,7 +19,6 @@
   "chat.stackplus.update.prefix": "[StackPlus] ",
   "chat.stackplus.update.released": "이(가) 출시되었습니다",
   "chat.stackplus.update.download": "다운로드",
-  "chat.stackplus.update.release_note": "릴리스 노트",
   "chat.stackplus.update.version": "버전 %s",
   "screen.stackplus.config.display_mode": "표시 방식: %s",
   "screen.stackplus.config.display_mode.99_plus": "99+",

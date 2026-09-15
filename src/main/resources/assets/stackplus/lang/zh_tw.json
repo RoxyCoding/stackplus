@@ -19,7 +19,6 @@
   "chat.stackplus.update.prefix": "[StackPlus] ",
   "chat.stackplus.update.released": "已發佈",
   "chat.stackplus.update.download": "下載",
-  "chat.stackplus.update.release_note": "發行說明",
   "chat.stackplus.update.version": "版本 %s",
   "screen.stackplus.config.display_mode": "顯示方式：%s",
   "screen.stackplus.config.display_mode.99_plus": "99+",

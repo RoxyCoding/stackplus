@@ -19,7 +19,6 @@
   "chat.stackplus.update.prefix": "[StackPlus] ",
   "chat.stackplus.update.released": " est sorti",
   "chat.stackplus.update.download": "Télécharger",
-  "chat.stackplus.update.release_note": "Notes de version",
   "chat.stackplus.update.version": "Version %s",
   "screen.stackplus.config.display_mode": "Affichage : %s",
   "screen.stackplus.config.display_mode.99_plus": "99+",

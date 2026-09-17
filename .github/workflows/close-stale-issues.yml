@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       days:
-        description: "この日数を過ぎた Issue を close する"
+        description: "auto-close ラベル (日数指定なし) の既定日数"
         default: "30"
       dry_run:
         description: "true の場合は close せず対象を表示するだけ"
@@ -31,12 +31,19 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
-          STALE_DAYS: ${{ inputs.days || '30' }}
           DRY_RUN: ${{ inputs.dry_run && 'true' || 'false' }}
-          # 判定基準: updated (最終更新日) or created (作成日)
-          STALE_BASIS: updated
+          # 判定基準:
+          #   label   … AUTO_CLOSE_LABEL を付けた時点から数える (Issue ごとに起点を指定)
+          #   updated … 最終更新日から数える
+          #   created … 作成日から数える
+          STALE_BASIS: label
+          # 起点となるラベル。auto-close:7d のように付けると Issue ごとに日数を変えられる
+          AUTO_CLOSE_LABEL: auto-close
+          # 日数指定のない auto-close ラベルに使う既定日数
+          STALE_DAYS: ${{ inputs.days || '30' }}
           # このラベルが付いた Issue は close しない (カンマ区切り)
           EXEMPT_LABELS: "Notice,pinned,security"
+          # close 前に投稿するコメント。{days} {label} {number} が置き換えられる
           CLOSE_COMMENT: |
-            この Issue は ${{ inputs.days || '30' }} 日以上更新がなかったため自動的に close されました。
+            `{label}` ラベルが付与されてから {days} 日が経過したため、この Issue は自動的に close されました。
             引き続き対応が必要な場合は再オープンするかコメントしてください。

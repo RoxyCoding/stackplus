@@ -8,6 +8,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.texture.DynamicTexture;
+import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.platform.NativeImage;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.renderpearl.api.textures.FilterMode;
@@ -94,7 +95,7 @@ final class StackPlusColorPickerScreen extends Screen {
         if (super.mouseClicked(event, doubleClick)) {
             return true;
         }
-        if (event.button() != 0) {
+        if (event.button() != InputConstants.MOUSE_BUTTON_LEFT) {
             return false;
         }
         if (!selectColorAt(event.x(), event.y())) {
@@ -106,7 +107,7 @@ final class StackPlusColorPickerScreen extends Screen {
 
     @Override
     public boolean mouseDragged(MouseButtonEvent event, double dragX, double dragY) {
-        if (event.button() == 0 && dragging) {
+        if (event.button() == InputConstants.MOUSE_BUTTON_LEFT && dragging) {
             selectColorAt(event.x(), event.y());
             return true;
         }
@@ -115,7 +116,7 @@ final class StackPlusColorPickerScreen extends Screen {
 
     @Override
     public boolean mouseReleased(MouseButtonEvent event) {
-        if (event.button() == 0) {
+        if (event.button() == InputConstants.MOUSE_BUTTON_LEFT) {
             dragging = false;
         }
         return super.mouseReleased(event);

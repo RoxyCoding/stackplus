@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.Set;
 
 public final class StackPlusItemSelection {
-    private static final int LEFT_MOUSE_BUTTON = 0;
+    private static final int LEFT_MOUSE_BUTTON = InputConstants.MOUSE_BUTTON_LEFT;
 
     public static void start(Screen parent, int itemStackLimit) {
         Minecraft client = Minecraft.getInstance();

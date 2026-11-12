@@ -1,0 +1,27 @@
+name: Issue auto reply
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: issue-auto-reply-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  reply:
+    if: github.repository == 'RoxyCoding/stackplus' && github.event.issue.user.type != 'Bot' && github.event.issue.number != 3
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: Reply to the new issue
+        run: node .github/scripts/issue-auto-reply.cjs
+        env:
+          GH_TOKEN: ${{ github.token }}

@@ -6,7 +6,6 @@ on:
 
 permissions:
   contents: read
-  issues: write
 
 concurrency:
   group: issue-auto-reply-${{ github.event.issue.number }}
@@ -21,7 +20,14 @@ jobs:
       - uses: actions/checkout@v6
         with:
           persist-credentials: false
+      - name: Create GitHub App token
+        uses: actions/create-github-app-token@v3
+        id: app-token
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          permission-issues: write
       - name: Reply to the new issue
         run: node .github/scripts/issue-auto-reply.cjs
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}

@@ -11,6 +11,7 @@ async function replyToIssue({ event, token, message, request = fetch }) {
   }
   if (!token) throw new Error('GH_TOKEN is required');
   if (!message.trim()) throw new Error('Reply message is empty');
+  if (!issue.user?.login) throw new Error('Issue author login is missing');
 
   const url = `https://api.github.com/repos/RoxyCoding/stackplus/issues/${issue.number}/comments`;
   const headers = {
@@ -32,7 +33,7 @@ async function replyToIssue({ event, token, message, request = fetch }) {
   const response = await request(url, {
     method: 'POST',
     headers,
-    body: JSON.stringify({ body: `${message.trimEnd()}\n\n${MARKER}\n` }),
+    body: JSON.stringify({ body: `@${issue.user.login}\n\n${message.trimEnd()}\n\n${MARKER}\n` }),
   });
   if (!response.ok) throw new Error(`Cannot post reply: HTTP ${response.status}`);
   return 'replied';

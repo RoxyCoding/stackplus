@@ -1,6 +1,8 @@
 name: Close unanswered needs-info issues
 
 on:
+  issue_comment:
+    types: [created]
   schedule:
     - cron: '23 3 * * *'
   workflow_dispatch:
@@ -14,12 +16,17 @@ permissions:
   contents: read
 
 concurrency:
-  group: issue-auto-close
+  group: issue-auto-close-${{ github.event.issue.number || 'sweep' }}
   cancel-in-progress: false
 
 jobs:
   close:
-    if: github.repository == 'RoxyCoding/stackplus'
+    if: >-
+      github.repository == 'RoxyCoding/stackplus' &&
+      (github.event_name != 'issue_comment' ||
+      (!github.event.issue.pull_request && github.event.issue.number != 3 &&
+      github.event.comment.user.type == 'User' &&
+      contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.comment.author_association)))
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -33,7 +40,7 @@ jobs:
           client-id: ${{ vars.APP_CLIENT_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
           permission-issues: write
-      - name: Close issues without an author response for 30 days
+      - name: Label developer replies or close issues awaiting a response for 30 days
         run: node .github/scripts/issue-auto-close.cjs
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}

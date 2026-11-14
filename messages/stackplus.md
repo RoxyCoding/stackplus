@@ -8,7 +8,7 @@ Thank you for reporting this issue.
 
 Issue reports are generally answered within one week.
 
-If the issue reporter does not respond within 30 days of a developer's reply, the issue may be automatically closed.
+If an issue lacks sufficient information, a developer may request more details. If the reporter does not respond to the request within 30 days, the issue may be automatically closed.
 
 ---
 

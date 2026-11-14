@@ -6,7 +6,7 @@ Thank you for reporting this issue.
 
 ### Policy on Responses and Closing Issues
 
-We generally strive to respond to reported issues within one week.
+Issue reports are generally answered within one week.
 
 If the issue reporter does not respond within 30 days of a reply from a developer, the issue will be automatically closed.
 
